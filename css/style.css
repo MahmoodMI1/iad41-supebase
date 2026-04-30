@@ -195,7 +195,7 @@ tr:hover td      { background: var(--muted); }
 .col-section { width: 80px; }
 .col-name    { width: auto; }
 .col-type    { width: 130px; }
-.col-action  { width: 36px; }
+.col-action  { width: 90px; }
 
 .sec-hdr td {
   font-size: 11px;
