@@ -1,0 +1,348 @@
+/* ─── Reset ─────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ─── Google Fonts ───────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=IBM+Plex+Mono&display=swap');
+
+/* ─── Tokens ─────────────────────────────────────────────── */
+:root {
+  --background: #faf7f5;
+  --foreground: #1a1a1a;
+  --card:        #faf7f5;
+  --border:      #f5e8d2;
+  --input:       #f5e8d2;
+  --muted:       #f0ebe8;
+  --muted-fg:    #57534e;
+  --primary:     #9b2c2c;
+  --primary-fg:  #ffffff;
+  --secondary:   #fdf2d6;
+  --accent:      #fef3c7;
+  --accent-fg:   #7f1d1d;
+  --sidebar:     #f0ebe8;
+  --destructive: #991b1b;
+  --radius:      0.375rem;
+  --font-sans:   'Poppins', system-ui, sans-serif;
+  --font-mono:   'IBM Plex Mono', monospace;
+
+  --dc-bg:#fde8e8;       --dc-tx:#7f1d1d;
+  --mep-bg:#fef3c7;      --mep-tx:#92400e;
+  --storage-bg:#fdf2d6;  --storage-tx:#805500;
+  --office-bg:#f5e8d2;   --office-tx:#57534e;
+  --rack-bg:#f0ebe8;     --rack-tx:#44403c;
+  --cage-bg:#fde8e8;     --cage-tx:#9b2c2c;
+  --loading-bg:#fee2e2;  --loading-tx:#991b1b;
+  --pop-bg:#fef9ee;      --pop-tx:#b45309;
+  --other-bg:#f5e8d2;    --other-tx:#57534e;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #1c1917;
+    --foreground: #f5f5f4;
+    --card:        #292524;
+    --border:      #44403c;
+    --input:       #44403c;
+    --muted:       #292524;
+    --muted-fg:    #d6d3d1;
+    --primary:     #b91c1c;
+    --primary-fg:  #faf7f5;
+    --secondary:   #92400e;
+    --accent:      #3f2b00;
+    --accent-fg:   #fef3c7;
+    --destructive: #ef4444;
+
+    --dc-bg:#3f1515;       --dc-tx:#fca5a5;
+    --mep-bg:#3f2b00;      --mep-tx:#fcd34d;
+    --storage-bg:#3b2000;  --storage-tx:#fde68a;
+    --office-bg:#292524;   --office-tx:#d6d3d1;
+    --rack-bg:#1c1917;     --rack-tx:#a8a29e;
+    --cage-bg:#3f1515;     --cage-tx:#f87171;
+    --loading-bg:#450a0a;  --loading-tx:#fca5a5;
+    --pop-bg:#2d1f00;      --pop-tx:#fbbf24;
+    --other-bg:#292524;    --other-tx:#a8a29e;
+  }
+}
+
+/* ─── Base ───────────────────────────────────────────────── */
+html { font-size: 14px; }
+body {
+  font-family: var(--font-sans);
+  background: var(--background);
+  color: var(--foreground);
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+/* ─── Header ─────────────────────────────────────────────── */
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  height: 54px;
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.header-inner { display: flex; align-items: baseline; gap: 10px; }
+.site-title   { font-size: 15px; font-weight: 600; color: var(--primary); letter-spacing: 0.06em; }
+.site-sub     { font-size: 12px; color: var(--muted-fg); }
+.header-meta  { font-size: 12px; color: var(--muted-fg); }
+
+/* ─── Main ───────────────────────────────────────────────── */
+.main-content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1.5rem 1.5rem 4rem;
+}
+
+/* ─── Add panel ──────────────────────────────────────────── */
+.add-panel {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+}
+.add-fields { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.add-fields input,
+.add-fields select {
+  flex: 1;
+  min-width: 130px;
+  height: 36px;
+  padding: 0 10px;
+  font-size: 13px;
+  font-family: var(--font-sans);
+  color: var(--foreground);
+  background: var(--input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  outline: none;
+  transition: border-color 0.15s;
+}
+.add-fields input:focus,
+.add-fields select:focus { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(155,44,44,0.12); }
+.add-fields button {
+  height: 36px;
+  padding: 0 16px;
+  font-size: 13px;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  color: var(--primary-fg);
+  background: var(--primary);
+  border: 1px solid var(--primary);
+  border-radius: var(--radius);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 0.12s;
+}
+.add-fields button:hover  { opacity: 0.88; }
+.add-fields button:active { transform: scale(0.98); }
+
+/* ─── Toolbar ────────────────────────────────────────────── */
+.toolbar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1rem; }
+.toolbar input,
+.toolbar select {
+  height: 36px;
+  padding: 0 10px;
+  font-size: 13px;
+  font-family: var(--font-sans);
+  color: var(--foreground);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  outline: none;
+  transition: border-color 0.15s;
+}
+.toolbar input  { flex: 1; min-width: 200px; }
+.toolbar select { min-width: 140px; }
+.toolbar input:focus,
+.toolbar select:focus { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(155,44,44,0.12); }
+
+/* ─── Table ──────────────────────────────────────────────── */
+.table-wrap {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+th {
+  text-align: left;
+  padding: 8px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted-fg);
+  background: var(--muted);
+  border-bottom: 1px solid var(--border);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+td {
+  padding: 7px 12px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+}
+tr:last-child td { border-bottom: none; }
+tr:hover td      { background: var(--muted); }
+
+.col-section { width: 80px; }
+.col-name    { width: auto; }
+.col-type    { width: 130px; }
+.col-action  { width: 36px; }
+
+.sec-hdr td {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--primary);
+  background: var(--accent);
+  padding: 8px 12px 5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ─── Type badges ────────────────────────────────────────── */
+.tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: calc(var(--radius) / 1.5);
+  white-space: nowrap;
+}
+.tag-dc      { background: var(--dc-bg);      color: var(--dc-tx); }
+.tag-mep     { background: var(--mep-bg);     color: var(--mep-tx); }
+.tag-storage { background: var(--storage-bg); color: var(--storage-tx); }
+.tag-office  { background: var(--office-bg);  color: var(--office-tx); }
+.tag-rack    { background: var(--rack-bg);    color: var(--rack-tx); }
+.tag-cage    { background: var(--cage-bg);    color: var(--cage-tx); }
+.tag-loading { background: var(--loading-bg); color: var(--loading-tx); }
+.tag-pop     { background: var(--pop-bg);     color: var(--pop-tx); }
+.tag-other   { background: var(--other-bg);   color: var(--other-tx); }
+
+/* ─── Delete button ──────────────────────────────────────── */
+.del-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--muted-fg);
+  font-size: 16px;
+  line-height: 1;
+  padding: 2px 5px;
+  border-radius: var(--radius);
+  transition: color 0.12s, background 0.12s;
+}
+.del-btn:hover { color: var(--destructive); background: var(--loading-bg); }
+
+/* ─── Empty state ────────────────────────────────────────── */
+.empty-row td {
+  text-align: center;
+  color: var(--muted-fg);
+  padding: 2rem;
+  font-size: 13px;
+}
+
+/* ─── Tabs ───────────────────────────────────────────────── */
+.tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0;
+}
+.tab-btn {
+  height: 36px;
+  padding: 0 16px;
+  font-size: 13px;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  color: var(--muted-fg);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  margin-bottom: -1px;
+  transition: color 0.15s, border-color 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.tab-btn:hover  { color: var(--foreground); }
+.tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
+
+/* ─── Log badge ──────────────────────────────────────────── */
+.log-count {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 1px 6px;
+  border-radius: 99px;
+  background: var(--accent);
+  color: var(--accent-fg);
+}
+
+/* ─── Log action badges ──────────────────────────────────── */
+.log-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: calc(var(--radius) / 1.5);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.log-added   { background: #dcfce7; color: #166534; }
+.log-deleted { background: var(--loading-bg); color: var(--loading-tx); }
+
+@media (prefers-color-scheme: dark) {
+  .log-added   { background: #14532d; color: #86efac; }
+  .log-deleted { background: #450a0a; color: #fca5a5; }
+}
+
+/* ─── Tabs ───────────────────────────────────────────────── */
+.tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.tab-btn {
+  height: 36px;
+  padding: 0 16px;
+  font-size: 13px;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  color: var(--muted-fg);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  margin-bottom: -1px;
+  transition: color 0.15s, border-color 0.15s;
+}
+.tab-btn:hover  { color: var(--foreground); }
+.tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
+
+/* ─── Log badges ─────────────────────────────────────────── */
+.log-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: calc(var(--radius) / 1.5);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.log-added   { background: #dcfce7; color: #166534; }
+.log-deleted { background: var(--loading-bg); color: var(--loading-tx); }
+
+@media (prefers-color-scheme: dark) {
+  .log-added   { background: #14532d; color: #86efac; }
+  .log-deleted { background: #450a0a; color: #fca5a5; }
+}

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IAD41 Location Manager</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div id="app">
+    <header class="site-header">
+      <div class="header-inner">
+        <span class="site-title">IAD41</span>
+        <span class="site-sub">Location Manager</span>
+      </div>
+      <div class="header-meta" id="entry-count"></div>
+    </header>
+
+    <main class="main-content">
+
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="entries">Entries</button>
+        <button class="tab-btn" data-tab="log">Change log</button>
+      </div>
+
+      <!-- Entries view -->
+      <div id="view-entries">
+        <section class="add-panel">
+          <div class="add-fields">
+            <input type="text" id="new-section" placeholder="Section (e.g. P100)" />
+            <input type="text" id="new-name" placeholder="Full room name" />
+            <select id="new-type">
+              <option value="dc">Data center</option>
+              <option value="mep">MEP room</option>
+              <option value="storage">Storage</option>
+              <option value="office">Office</option>
+              <option value="rack">Rack / cabinet</option>
+              <option value="cage">Cage</option>
+              <option value="loading">Loading dock</option>
+              <option value="pop">POP room</option>
+              <option value="other">Other</option>
+            </select>
+            <button onclick="App.add()">+ Add entry</button>
+          </div>
+        </section>
+
+        <section class="toolbar">
+          <input type="text" id="q" placeholder="Filter by name, section, or type..." oninput="App.render()" />
+          <select id="sec-filter" onchange="App.render()"><option value="">All sections</option></select>
+          <select id="type-filter" onchange="App.render()"><option value="">All types</option></select>
+        </section>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th class="col-section">Section</th>
+                <th class="col-name">Full name</th>
+                <th class="col-type">Type</th>
+                <th class="col-action"></th>
+              </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Log view -->
+      <div id="view-log" style="display:none;">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:90px;">Action</th>
+                <th>Name</th>
+                <th style="width:90px;">Section</th>
+                <th style="width:160px;">Time</th>
+              </tr>
+            </thead>
+            <tbody id="log-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="data/locations.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
