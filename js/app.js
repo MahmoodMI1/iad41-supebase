@@ -83,7 +83,7 @@ const App = (() => {
   // ── Row HTML ───────────────────────────────────────────────
   function rowHTML(row, isCompleted) {
     const { id, section: s, name: n, type: t, note } = row;
-    const notePreview = note ? `<span class="note-preview" title="${note}">📝</span>` : "";
+    const notePreview = note ? `<span class="note-preview" onclick="App.toggleNote(${id})" title="${note}">📝 <em style="font-size:11px;color:var(--muted-fg);font-style:normal;">${note.length > 30 ? note.slice(0,30)+"…" : note}</em></span>` : "";
     const noteBox = openNoteId === id ? `
       <tr class="note-row" id="note-row-${id}">
         <td colspan="5">
@@ -187,6 +187,7 @@ const App = (() => {
     if (!input) return;
     const note = input.value.trim();
     await sb("locations?id=eq." + id, "PATCH", { note });
+    // Update local data so re-render shows the note immediately
     const entry = data.find(d => d.id === id);
     if (entry) entry.note = note;
     openNoteId = null;
