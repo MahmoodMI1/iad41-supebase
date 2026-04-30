@@ -346,3 +346,68 @@ tr:hover td      { background: var(--muted); }
   .log-added   { background: #14532d; color: #86efac; }
   .log-deleted { background: #450a0a; color: #fca5a5; }
 }
+
+/* ─── Row actions ────────────────────────────────────────── */
+.row-actions { display: flex; align-items: center; gap: 2px; }
+.icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+  padding: 2px 4px;
+  border-radius: var(--radius);
+  transition: background 0.12s;
+  line-height: 1;
+}
+.icon-btn:hover { background: var(--muted); }
+
+/* ─── Note ───────────────────────────────────────────────── */
+.note-preview { font-size: 11px; margin-left: 4px; cursor: pointer; }
+.note-row td  { padding: 0; background: var(--accent); }
+.note-editor  { padding: 10px 12px; display: flex; flex-direction: column; gap: 8px; }
+.note-editor textarea {
+  width: 100%;
+  min-height: 70px;
+  padding: 8px 10px;
+  font-size: 13px;
+  font-family: var(--font-sans);
+  color: var(--foreground);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  resize: vertical;
+  outline: none;
+}
+.note-editor textarea:focus { border-color: var(--primary); }
+.note-actions { display: flex; gap: 8px; }
+.note-actions button {
+  height: 32px;
+  padding: 0 14px;
+  font-size: 12px;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  color: var(--primary-fg);
+  background: var(--primary);
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+.note-actions button:hover { opacity: 0.88; }
+.note-actions .btn-cancel {
+  background: var(--muted);
+  color: var(--foreground);
+}
+
+/* ─── Log extra badges ───────────────────────────────────── */
+.log-completed { background: #dbeafe; color: #1e40af; }
+.log-reopened  { background: #fef3c7; color: #92400e; }
+
+/* ─── Completed count badge ──────────────────────────────── */
+.log-count {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 1px 6px;
+  border-radius: 99px;
+  background: var(--accent);
+  color: var(--accent-fg);
+}

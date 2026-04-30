@@ -20,10 +20,13 @@
 
       <div class="tabs">
         <button class="tab-btn active" data-tab="entries">Entries</button>
+        <button class="tab-btn" data-tab="completed">
+          Completed <span id="completed-count" class="log-count"></span>
+        </button>
         <button class="tab-btn" data-tab="log">Change log</button>
       </div>
 
-      <!-- Entries view -->
+      <!-- Entries -->
       <div id="view-entries">
         <section class="add-panel">
           <div class="add-fields">
@@ -43,40 +46,49 @@
             <button onclick="App.add()">+ Add entry</button>
           </div>
         </section>
-
         <section class="toolbar">
           <input type="text" id="q" placeholder="Filter by name, section, or type..." oninput="App.render()" />
           <select id="sec-filter" onchange="App.render()"><option value="">All sections</option></select>
           <select id="type-filter" onchange="App.render()"><option value="">All types</option></select>
         </section>
-
         <div class="table-wrap">
           <table>
-            <thead>
-              <tr>
-                <th class="col-section">Section</th>
-                <th class="col-name">Full name</th>
-                <th class="col-type">Type</th>
-                <th class="col-action"></th>
-              </tr>
-            </thead>
+            <thead><tr>
+              <th class="col-section">Section</th>
+              <th class="col-name">Full name</th>
+              <th class="col-type">Type</th>
+              <th class="col-action"></th>
+            </tr></thead>
             <tbody id="tbody"></tbody>
           </table>
         </div>
       </div>
 
-      <!-- Log view -->
+      <!-- Completed -->
+      <div id="view-completed" style="display:none;">
+        <div class="table-wrap">
+          <table>
+            <thead><tr>
+              <th class="col-section">Section</th>
+              <th class="col-name">Full name</th>
+              <th class="col-type">Type</th>
+              <th class="col-action"></th>
+            </tr></thead>
+            <tbody id="completed-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Log -->
       <div id="view-log" style="display:none;">
         <div class="table-wrap">
           <table>
-            <thead>
-              <tr>
-                <th style="width:90px;">Action</th>
-                <th>Name</th>
-                <th style="width:90px;">Section</th>
-                <th style="width:160px;">Time</th>
-              </tr>
-            </thead>
+            <thead><tr>
+              <th style="width:100px;">Action</th>
+              <th>Name</th>
+              <th style="width:90px;">Section</th>
+              <th style="width:160px;">Time</th>
+            </tr></thead>
             <tbody id="log-tbody"></tbody>
           </table>
         </div>
@@ -84,7 +96,6 @@
 
     </main>
   </div>
-
   <script src="data/locations.js"></script>
   <script src="js/app.js"></script>
 </body>
