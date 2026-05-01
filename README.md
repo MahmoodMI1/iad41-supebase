@@ -68,4 +68,4 @@ Designed, built, and shipped independently under property management.
 
 ---
 
-**Mahmood Idelbi** · Property Management Engineer · IAD41
+**Mahmood Idelbi** · Software Engineering Student: Second Year · IAD41
