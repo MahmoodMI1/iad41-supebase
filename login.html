@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IAD41 – Sign In</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body { display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+    .login-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      width: 100%;
+      max-width: 360px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .login-header { text-align: center; }
+    .login-header h1 { font-size: 20px; font-weight: 600; color: var(--primary); }
+    .login-header p  { font-size: 13px; color: var(--muted-fg); margin-top: 4px; }
+    .field { display: flex; flex-direction: column; gap: 6px; }
+    .field label { font-size: 12px; font-weight: 500; color: var(--muted-fg); }
+    .field input {
+      height: 38px;
+      padding: 0 12px;
+      font-size: 13px;
+      font-family: var(--font-sans);
+      color: var(--foreground);
+      background: var(--input);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .field input:focus { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(155,44,44,0.12); }
+    .login-btn {
+      height: 40px;
+      width: 100%;
+      font-size: 14px;
+      font-family: var(--font-sans);
+      font-weight: 500;
+      color: var(--primary-fg);
+      background: var(--primary);
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: opacity 0.12s;
+    }
+    .login-btn:hover   { opacity: 0.88; }
+    .login-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .error-msg {
+      font-size: 12px;
+      color: var(--destructive);
+      text-align: center;
+      min-height: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-card">
+    <div class="login-header">
+      <h1>IAD41</h1>
+      <p>Access Control Manager</p>
+    </div>
+    <div class="field">
+      <label>Email</label>
+      <input type="email" id="email" placeholder="you@example.com" />
+    </div>
+    <div class="field">
+      <label>Password</label>
+      <input type="password" id="password" placeholder="••••••••" />
+    </div>
+    <div class="error-msg" id="error"></div>
+    <button class="login-btn" id="login-btn" onclick="signIn()">Sign in</button>
+  </div>
+
+  <script>
+    const SUPABASE_URL = "https://vgezwoyljequmkrqwwfo.supabase.co";
+    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZnZXp3b3lsamVxdW1rcnF3d2ZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzczMzE3NTgsImV4cCI6MjA5MjkwNzc1OH0.af20wi_HLdvcfkhYXee9WPM4PDrCdDaeCGRDGMpInRE";
+
+    // If already logged in, go straight to app
+    const session = localStorage.getItem("sb_session");
+    if (session) window.location.href = "index.html";
+
+    async function signIn() {
+      const email    = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      const btn      = document.getElementById("login-btn");
+      const error    = document.getElementById("error");
+
+      if (!email || !password) { error.textContent = "Please enter email and password."; return; }
+
+      btn.disabled = true;
+      btn.textContent = "Signing in...";
+      error.textContent = "";
+
+      const res = await fetch(SUPABASE_URL + "/auth/v1/token?grant_type=password", {
+        method: "POST",
+        headers: {
+          "apikey": SUPABASE_KEY,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email, password })
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        error.textContent = data.error_description || data.msg || "Invalid credentials.";
+        btn.disabled = false;
+        btn.textContent = "Sign in";
+        return;
+      }
+
+      localStorage.setItem("sb_session", JSON.stringify(data));
+      window.location.href = "index.html";
+    }
+
+    // Allow Enter key
+    document.addEventListener("keydown", e => { if (e.key === "Enter") signIn(); });
+  </script>
+</body>
+</html>

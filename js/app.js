@@ -7,6 +7,16 @@
 const SUPABASE_URL = "https://vgezwoyljequmkrqwwfo.supabase.co";
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZnZXp3b3lsamVxdW1rcnF3d2ZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzczMzE3NTgsImV4cCI6MjA5MjkwNzc1OH0.af20wi_HLdvcfkhYXee9WPM4PDrCdDaeCGRDGMpInRE";
 
+// ── Auth guard ─────────────────────────────────────────────
+(function() {
+  const session = localStorage.getItem("sb_session");
+  if (!session) { window.location.href = "login.html"; return; }
+  try {
+    const parsed = JSON.parse(session);
+    if (!parsed.access_token) window.location.href = "login.html";
+  } catch(e) { window.location.href = "login.html"; }
+})();
+
 const TYPE_LABEL = {
   dc:"Data center", mep:"MEP room", storage:"Storage", office:"Office",
   rack:"Rack / cabinet", cage:"Cage", loading:"Loading dock", pop:"POP room",
@@ -25,7 +35,7 @@ const App = (() => {
       method,
       headers: {
         "apikey": SUPABASE_KEY,
-        "Authorization": "Bearer " + SUPABASE_KEY,
+        "Authorization": "Bearer " + (JSON.parse(localStorage.getItem("sb_session")||"{}" ).access_token || SUPABASE_KEY),
         "Content-Type": "application/json",
         "Prefer": method === "POST" ? "return=representation" : "",
       }

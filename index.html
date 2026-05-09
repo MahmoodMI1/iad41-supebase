@@ -13,7 +13,7 @@
         <span class="site-title">IAD41</span>
         <span class="site-sub">Location Manager</span>
       </div>
-      <div class="header-meta" id="entry-count"></div>
+      <div style="display:flex;align-items:center;gap:12px;"><div class="header-meta" id="entry-count"></div><button onclick="signOut()" style="height:30px;padding:0 12px;font-size:12px;font-family:var(--font-sans);font-weight:500;color:var(--muted-fg);background:none;border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;">Sign out</button></div>
     </header>
 
     <main class="main-content">
@@ -96,7 +96,13 @@
 
     </main>
   </div>
-  <script src="data/locations.js"></script>
+  <script>
+  function signOut() {
+    localStorage.removeItem("sb_session");
+    window.location.href = "login.html";
+  }
+</script>
+<script src="data/locations.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
